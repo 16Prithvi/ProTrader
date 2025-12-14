@@ -1,0 +1,8 @@
+export const MOCK_HEADLINES = [
+    { id: 1, tag: 'TSLA', category: 'Auto', sentiment: 'Positive', title: 'Tesla surprises with Q4 deliveries beat', summary: 'Tesla significantly exceeded analyst expectations with record delivery numbers in Q4, driven by price cuts and strong demand in China.', time: '5 min ago' },
+    { id: 2, tag: 'Market', category: 'Macro', sentiment: 'Neutral', title: 'Fed Signals Pause in Rate Hikes', summary: 'Federal Reserve officials signaled they may pause interest rate hikes at their next meeting to assess the economic impact of recent tightening.', time: '1 hr ago' },
+    { id: 3, tag: 'NVDA', category: 'AI', sentiment: 'Positive', title: 'AI Chip Demand Soars to New Highs', summary: 'NVIDIA reports unprecedented demand for H100 chips as hyperscalers race to build generative AI infrastructure.', time: '2 hrs ago' },
+    { id: 4, tag: 'GOOG', category: 'Tech', sentiment: 'Negative', title: 'Antitrust Lawsuit Looms for Google', summary: 'Department of Justice expected to file a new antitrust lawsuit targeting Google\'s dominance in the digital advertising market.', time: '3 hrs ago' },
+    { id: 5, tag: 'AMZN', category: 'E-commerce', sentiment: 'Positive', title: 'Amazon Cloud Revenue Accelerates', summary: 'AWS growth re-accelerated in the latest quarter, defying fears of a slowdown in cloud spending.', time: '5 hrs ago' },
+    { id: 6, tag: 'META', category: 'Social', sentiment: 'Neutral', title: 'Meta Announces New VR Headset', summary: 'Meta unveils its latest Quest headset aimed at mainstream adoption, but analysts remain skeptical about the metaverse timeline.', time: '6 hrs ago' },
+];

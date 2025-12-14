@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-textMain min-h-screen antialiased selection:bg-primary/20;
+    font-feature-settings: "cv11", "ss01";
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-surface/60 backdrop-blur-md border border-white/5 shadow-xl;
+  }
+  .glass-header {
+    @apply bg-background/80 backdrop-blur-lg border-b border-white/5;
+  }
+}
