@@ -81,7 +81,9 @@ export default function Insights() {
             // Heatmap Change %s
             // Day 1-4 (Fixed), Day 5 (Live), Day 6-7 (Weekend/Null)
             const dailyChanges = weeklyPoints.map((p, i) => {
-                if (i === 0) return 0;
+                if (i === 0) {
+                    return ((p.value - baseInfo.basePrice) / baseInfo.basePrice) * 100;
+                }
                 return ((p.value - weeklyPoints[i - 1].value) / weeklyPoints[i - 1].value) * 100;
             });
             // Fill 7 days: [Day1, Day2, Day3, Day4, Day5, Weekend, Weekend]
