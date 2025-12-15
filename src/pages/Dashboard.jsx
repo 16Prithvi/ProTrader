@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useStocks } from '../context/StockContext';
 import DashboardLayout from '../layouts/DashboardLayout';
@@ -8,6 +9,7 @@ import MyStocksGrid from '../components/dashboard/MyStocksGrid';
 import LiveMultiChart from '../components/dashboard/LiveMultiChart';
 import ActivityPanel from '../components/dashboard/ActivityPanel';
 import NewsSnapshot from '../components/dashboard/NewsSnapshot';
+import StockPreviewCard from '../components/dashboard/StockPreviewCard';
 
 export default function Dashboard() {
     const { currentUser } = useAuth();
@@ -75,9 +77,9 @@ export default function Dashboard() {
                         <h2 className="text-white font-bold text-lg">Welcome to ProTrader Preview</h2>
                         <p className="text-white/80 text-sm">You are viewing a live demo. Sign up to manage your own real-time portfolio.</p>
                     </div>
-                    <a href="/signup" className="px-6 py-2 bg-white text-primary font-bold rounded-lg shadow-sm hover:scale-105 transition-transform">
+                    <Link to="/signup" className="px-6 py-2 bg-white text-primary font-bold rounded-lg shadow-sm hover:scale-105 transition-transform">
                         Get Started
-                    </a>
+                    </Link>
                 </div>
             )}
             <Hero
@@ -90,6 +92,13 @@ export default function Dashboard() {
             />
 
             <SubscriptionBar />
+
+            {/* Guest Preview Card */}
+            {!currentUser && (
+                <div className="mb-8 flex justify-center md:justify-start">
+                    <StockPreviewCard />
+                </div>
+            )}
 
             {/* Full Width Stock Grid */}
             <div id="my-stocks-grid" className="mb-8">

@@ -28,6 +28,9 @@ export function AuthProvider({ children }) {
         const newUser = { name, email, password, subscribedTickers: [] };
         users[email] = newUser;
         localStorage.setItem('users', JSON.stringify(users));
+
+        // Auto-login
+        login(email, password);
     };
 
     const login = (email, password) => {

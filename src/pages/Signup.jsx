@@ -30,7 +30,7 @@ export default function Signup() {
             setLoading(true);
             await new Promise(resolve => setTimeout(resolve, 800)); // Fake network delay
             signup(name, email, password);
-            navigate('/login');
+            navigate('/dashboard');
         } catch (err) {
             setError('Failed to create an account: ' + err.message);
         }

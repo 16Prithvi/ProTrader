@@ -10,8 +10,8 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
 
     const allNavItems = [
         { label: 'Dashboard', path: '/dashboard', icon: LayoutDashboard, public: true },
-        { label: 'Analytics', path: '/analytics', icon: TrendingUp, public: false },
         { label: 'Compare', path: '/compare', icon: ArrowRightLeft, public: false },
+        { label: 'Analytics', path: '/analytics', icon: TrendingUp, public: false },
         { label: 'Insights', path: '/insights', icon: Lightbulb, public: false },
         { label: 'News', path: '/news', icon: Newspaper, public: false },
     ];

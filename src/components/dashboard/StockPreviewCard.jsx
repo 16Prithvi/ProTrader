@@ -1,73 +1,78 @@
 import React from 'react';
 import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts';
-import { X, TrendingUp, TrendingDown, Bell } from 'lucide-react';
-import clsx from 'clsx';
-import { useStocks } from '../../context/StockContext';
+import { X, Bell } from 'lucide-react';
 import PriceAlertModal from './PriceAlertModal';
 
-export default function StockCard({ ticker, quantity = 1 }) {
-    const { stocks, stockState, unsubscribe } = useStocks();
+export default function StockPreviewCard() {
     const [isAlertOpen, setIsAlertOpen] = React.useState(false);
 
-    const stockInfo = stocks[ticker];
-    const stockData = stockState[ticker];
+    // Hardcoded mock data to match the visual reference (Alphabet Inc. GOOG)
+    const stockInfo = {
+        name: 'Alphabet Inc.',
+        ticker: 'GOOG',
+        price: 318.20,
+        change: 9.20,
+        changePercent: 2.98,
+        open: 308.00,
+        volume: '15.2M',
+        dayHigh: 312.20,
+        marketCap: '1.95T',
+        dayLow: 305.50,
+        peRatio: 26.5
+    };
 
-    if (!stockInfo || !stockData) return null;
+    // Simulated chart data for the sparkline (upward trend)
+    const chartData = [
+        { value: 308 }, { value: 306 }, { value: 309 }, { value: 307 }, { value: 311 },
+        { value: 310 }, { value: 315 }, { value: 314 }, { value: 313 }, { value: 316 },
+        { value: 314 }, { value: 315 }, { value: 317 }, { value: 316 }, { value: 318 },
+        { value: 318.20 }
+    ];
 
-    const isPositive = stockData.change >= 0;
+    const isPositive = stockInfo.change >= 0;
     const color = isPositive ? '#22c55e' : '#ef4444';
 
-    // Format history for sparkline
-    const chartData = stockData.history.map(point => ({ value: point.price }));
-
-    // Calculate position value
-    const positionValue = stockData.price * quantity;
-
     return (
-        <div id={ticker} className="glass-card rounded-2xl p-5 relative group hover:-translate-y-1 transition-transform duration-300">
+        <div className="bg-[#0B1221] rounded-2xl p-5 relative border border-white/10 w-full max-w-sm shadow-2xl">
             {/* Header */}
-            <div className="flex justify-between items-start mb-4">
+            <div className="flex justify-between items-start mb-2">
                 <div>
-                    <h3 className="text-xl font-bold text-white tracking-wide">{stockInfo.name} ({ticker})</h3>
+                    <h3 className="text-xl font-bold text-white tracking-wide">{stockInfo.name} ({stockInfo.ticker})</h3>
                     <div className="text-sm font-medium text-textMuted mt-1">
-                        {quantity} Share{quantity > 1 ? 's' : ''} • <span className="text-white font-semibold tabular-nums">${positionValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                        1 Share • <span className="text-white font-semibold">${stockInfo.price.toFixed(2)}</span>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
                     <button
                         onClick={() => setIsAlertOpen(true)}
-                        className="p-1.5 rounded-lg text-textMuted hover:text-white hover:bg-white/5 transition-colors"
+                        className="text-textMuted/50 hover:text-white transition-colors cursor-default"
                         title="Set Price Alert"
                     >
                         <Bell className="w-4 h-4" />
                     </button>
-                    <button
-                        onClick={() => unsubscribe(ticker)}
-                        className="p-1.5 rounded-lg text-textMuted hover:text-danger hover:bg-white/5 transition-colors"
-                        title="Unsubscribe"
-                    >
+                    <button className="text-textMuted/50 hover:text-white transition-colors cursor-default" title="Dismiss">
                         <X className="w-4 h-4" />
                     </button>
                 </div>
             </div>
 
             {/* Big Price & Change */}
-            <div className="mb-6">
+            <div className="mb-4">
                 <div className="text-4xl font-bold text-white tabular-nums tracking-tight">
-                    ${stockData.price.toFixed(2)}
+                    ${stockInfo.price.toFixed(2)}
                 </div>
-                <div className={clsx("flex items-center gap-2 mt-1 font-medium", isPositive ? "text-success" : "text-danger")}>
-                    {stockData.change.toFixed(2)} ({stockData.changePercent.toFixed(2)}%)
+                <div className="flex items-center gap-2 mt-1 font-medium text-success">
+                    {stockInfo.change.toFixed(2)} ({stockInfo.changePercent.toFixed(2)}%)
                     <span className="text-textMuted text-xs ml-1 font-normal">Today</span>
                 </div>
             </div>
 
-            {/* Sparkline (Smaller) */}
-            <div className="h-16 -mx-2 mb-6 relative opacity-80 hover:opacity-100 transition-opacity">
+            {/* Sparkline */}
+            <div className="h-16 -mx-2 mb-6 relative">
                 <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={chartData}>
                         <defs>
-                            <linearGradient id={`gradient-${ticker}`} x1="0" y1="0" x2="0" y2="1">
+                            <linearGradient id="gradient-preview" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="0%" stopColor={color} stopOpacity={0.2} />
                                 <stop offset="90%" stopColor={color} stopOpacity={0} />
                             </linearGradient>
@@ -77,9 +82,9 @@ export default function StockCard({ ticker, quantity = 1 }) {
                             type="monotone"
                             dataKey="value"
                             stroke={color}
-                            fill={`url(#gradient-${ticker})`}
+                            fill="url(#gradient-preview)"
                             strokeWidth={2}
-                            isAnimationActive={false}
+                            isAnimationActive={true}
                         />
                     </AreaChart>
                 </ResponsiveContainer>
@@ -89,7 +94,7 @@ export default function StockCard({ ticker, quantity = 1 }) {
             <div className="grid grid-cols-2 gap-y-3 gap-x-8 text-sm pt-4 border-t border-white/5">
                 <div className="flex justify-between">
                     <span className="text-textMuted">Open</span>
-                    <span className="text-white font-medium tabular-nums">{stockInfo.open?.toFixed(2)}</span>
+                    <span className="text-white font-medium tabular-nums">{stockInfo.open.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                     <span className="text-textMuted">Volume</span>
@@ -97,7 +102,7 @@ export default function StockCard({ ticker, quantity = 1 }) {
                 </div>
                 <div className="flex justify-between">
                     <span className="text-textMuted">Day High</span>
-                    <span className="text-white font-medium tabular-nums">{stockInfo.dayHigh?.toFixed(2)}</span>
+                    <span className="text-white font-medium tabular-nums">{stockInfo.dayHigh.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                     <span className="text-textMuted">Mkt Cap</span>
@@ -105,9 +110,8 @@ export default function StockCard({ ticker, quantity = 1 }) {
                 </div>
                 <div className="flex justify-between">
                     <span className="text-textMuted">Day Low</span>
-                    <span className="text-white font-medium tabular-nums">{stockInfo.dayLow?.toFixed(2)}</span>
+                    <span className="text-white font-medium tabular-nums">{stockInfo.dayLow.toFixed(2)}</span>
                 </div>
-
                 <div className="flex justify-between">
                     <span className="text-textMuted">P/E Ratio</span>
                     <span className="text-white font-medium tabular-nums">{stockInfo.peRatio}</span>
@@ -117,7 +121,7 @@ export default function StockCard({ ticker, quantity = 1 }) {
             <PriceAlertModal
                 isOpen={isAlertOpen}
                 onClose={() => setIsAlertOpen(false)}
-                stock={stockData ? { ...stockData, ticker, name: stockInfo.name } : null}
+                stock={stockInfo}
             />
         </div>
     );

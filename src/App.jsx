@@ -10,6 +10,26 @@ import Analytics from './pages/Analytics';
 import Insights from './pages/Insights';
 import News from './pages/News';
 import Compare from './pages/Compare';
+import Toast from './components/Toast';
+import { useStocks } from './context/StockContext';
+
+function ToastContainer() {
+  const { notifications, removeNotification } = useStocks();
+
+  return (
+    <div className="fixed bottom-4 right-4 z-[9999] flex flex-col gap-2 pointer-events-none">
+      {notifications.map(n => (
+        <div key={n.id} className="pointer-events-auto">
+          <Toast
+            message={n.message}
+            type={n.type}
+            onClose={() => removeNotification(n.id)}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 
 
@@ -61,6 +81,7 @@ function App() {
 
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </Routes>
+          <ToastContainer />
         </Router>
       </StockProvider>
     </AuthProvider>
