@@ -37,7 +37,11 @@ export function AuthProvider({ children }) {
         const users = JSON.parse(localStorage.getItem('users') || '{}');
         const user = users[email];
 
-        if (!user || user.password !== password) {
+        if (!user) {
+            throw new Error('Account not found. Please sign up first.');
+        }
+
+        if (user.password !== password) {
             throw new Error('Invalid email or password');
         }
 

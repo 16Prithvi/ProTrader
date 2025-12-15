@@ -22,7 +22,7 @@ export default function Login() {
             login(email, password);
             navigate('/dashboard');
         } catch (err) {
-            setError('Failed to log in: ' + err.message);
+            setError(err.message);
         }
         setLoading(false);
     }
