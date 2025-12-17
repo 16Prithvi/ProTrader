@@ -14,7 +14,7 @@ export default function PriceAlertModal({ isOpen, onClose, stock }) {
             setPrice(stock.price ? stock.price.toFixed(2) : '');
             // Default to 'ABOVE' if current price is positive change, else 'BELOW' (optional heuristic)
         }
-    }, [isOpen, stock]);
+    }, [isOpen, stock?.ticker]);
 
     if (!isOpen || !stock) return null;
 

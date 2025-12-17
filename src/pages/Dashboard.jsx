@@ -15,6 +15,14 @@ export default function Dashboard() {
     const { currentUser } = useAuth();
     const { stockState } = useStocks();
 
+    const subscriptionInputRef = React.useRef(null);
+
+    const handleFocusSubscription = () => {
+        subscriptionInputRef.current?.focus();
+        // Scroll to top smoothly not strictly needed if stick to top, but good for mobile
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     // Demo User for Guests
     const DEMO_USER = {
         name: 'Guest Trader',
@@ -91,7 +99,7 @@ export default function Dashboard() {
                 marketStats={portfolioData.marketStats}
             />
 
-            <SubscriptionBar />
+            <SubscriptionBar inputRef={subscriptionInputRef} />
 
             {/* Guest Preview Card */}
             {!currentUser && (
@@ -102,7 +110,7 @@ export default function Dashboard() {
 
             {/* Full Width Stock Grid */}
             <div id="my-stocks-grid" className="mb-8">
-                <MyStocksGrid />
+                <MyStocksGrid onAddStock={handleFocusSubscription} />
             </div>
 
             {/* Main Content Split: Charts & Activity */}

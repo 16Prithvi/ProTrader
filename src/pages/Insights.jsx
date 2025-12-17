@@ -197,7 +197,7 @@ export default function Insights() {
                     </div>
                     <h2 className="text-3xl font-bold text-white">No insights yet</h2>
                     <p className="text-textMuted max-w-md">
-                        Subscribe to at least one stock from your Dashboard to see detailed AI-generated insights and trend analysis.
+                        Subscribe to at least one stock from your Dashboard to see detailed insights and trend analysis.
                     </p>
                     <Link
                         to="/dashboard"

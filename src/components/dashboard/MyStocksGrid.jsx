@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import StockCard from './StockCard';
 import { PlusCircle } from 'lucide-react';
 
-export default function MyStocksGrid({ tickers, isFiltered }) {
+export default function MyStocksGrid({ tickers, isFiltered, onAddStock }) {
     const { currentUser } = useAuth();
     // Use props if available (filtered view), otherwise fallback to all subscriptions
     const displayTickers = tickers || currentUser?.subscribedTickers || [];
@@ -11,9 +11,12 @@ export default function MyStocksGrid({ tickers, isFiltered }) {
     if (displayTickers.length === 0) {
         return (
             <div className="glass-card rounded-2xl p-8 text-center border-dashed border-white/20">
-                <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full bg-surfaceHighlight text-primary animate-pulse">
+                <button
+                    onClick={onAddStock}
+                    className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full bg-surfaceHighlight text-primary animate-pulse hover:bg-primary/20 cursor-pointer transition-colors"
+                >
                     <PlusCircle className="w-6 h-6" />
-                </div>
+                </button>
                 <h3 className="text-xl font-bold text-white mb-2">
                     {isFiltered ? "No stocks match filter" : "No stocks yet"}
                 </h3>

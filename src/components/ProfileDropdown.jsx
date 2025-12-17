@@ -66,7 +66,7 @@ export default function ProfileDropdown() {
                     <div className="p-6 bg-gradient-to-b from-surfaceHighlight to-surface border-b border-white/5 text-center">
                         <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-primary to-secondary p-1 mx-auto mb-3 shadow-xl">
                             <img
-                                src={currentUser?.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${currentUser?.name}`}
+                                src={currentUser?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser?.name}`}
                                 alt="Profile"
                                 className="w-full h-full rounded-full bg-surface object-cover"
                             />

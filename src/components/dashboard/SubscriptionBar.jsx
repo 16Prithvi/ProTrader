@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { AVAILABLE_TICKERS } from '../../data/stocks';
 import clsx from 'clsx';
 
-export default function SubscriptionBar() {
+export default function SubscriptionBar({ inputRef }) {
     const { subscribe } = useStocks();
     const { currentUser } = useAuth();
     const [selectedTicker, setSelectedTicker] = useState('');
@@ -30,6 +30,7 @@ export default function SubscriptionBar() {
             <div className="flex items-center gap-3 w-full md:w-auto">
                 <div className="relative group flex-1 md:flex-none">
                     <select
+                        ref={inputRef}
                         value={selectedTicker}
                         onChange={(e) => setSelectedTicker(e.target.value)}
                         disabled={isMaxReached}
