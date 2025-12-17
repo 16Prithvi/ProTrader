@@ -45,8 +45,8 @@ Subscribe to high-performing stocks like **Apple, Tesla, and Google**. Watch liv
 
 1. **Clone the repository**
    ```bash
-   git clone [https://github.com/16Prithvi/ProTrader.git](https://github.com/16Prithvi/ProTrader.git)
-2.Install dependencies
+git clone [https://github.com/16Prithvi/ProTrader.git](https://github.com/16Prithvi/ProTrader.git)
+2. Install dependencies
 
  Bash
 
